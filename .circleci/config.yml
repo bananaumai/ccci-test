@@ -49,4 +49,6 @@ workflows:
           filters:
             tags:
               only: /^deploy\/.*$/
+            branches:
+              ignore: /.*/
 
