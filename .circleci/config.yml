@@ -1,21 +1,24 @@
-job_common:
+job_common: &job_common
   docker:
     - image: circleci/golang:1.12
 
 jobs:
-  build: &job_common
+  build:
+    <<: *job_common
     steps:
       - checkout
       - run:
           name: build
           command: make build
-  test: &job_common
+  test:
+    <<: *job_common
     steps:
       - checkout
       - run:
           name: test
           command: make test
-  deploy: &job_common
+  deploy:
+    <<: *job_common
     steps:
       - checkout
       - run:
