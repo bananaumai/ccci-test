@@ -39,10 +39,16 @@ workflows:
   version: 2
   build-test-deploy:
     jobs:
-      - build
+      - build:
+          filters:
+            tags:
+              only: /^deploy\/.*$/
       - test:
           requires:
             - build
+          filters:
+            tags:
+              only: /^deploy\/.*$/
       - deploy:
           requires:
             - test
