@@ -36,7 +36,7 @@ jobs:
           name: deploy
           command: |
             VERSION=`echo ${CIRCLE_TAG} | perl -pe 's/^deploy\/(.*)$/$1/'`
-            if [VERSION != '']; then
+            if [${VERSION} != '']; then
               make VERSION=${VERSION} deploy
             else
               exit 1
