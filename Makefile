@@ -1,6 +1,7 @@
 .PHONY: test deploy
 
 VERSION=DEFAULT
+TARGET_DIR=./
 TARGET=./dist/build
 
 build:
