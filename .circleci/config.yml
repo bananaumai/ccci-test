@@ -1,26 +1,38 @@
-job_common: &job_common
-  docker:
-    - image: circleci/golang:1.12
+executors:
+  default:
+    docker:
+      - image: circleci/golang:1.12
+    working_dir:
+      - /tmp
+
 
 jobs:
   build:
-    <<: *job_common
+    executor: default
     steps:
       - checkout
       - run:
           name: build
           command: make build
+      - persist_to_workspace:
+          root: dist
+          paths:
+            - build
   test:
-    <<: *job_common
+    executor: default
     steps:
       - checkout
+      - attach_workspace:
+          at: /tmp/dist
       - run:
           name: test
           command: make test
   deploy:
-    <<: *job_common
+    executor: default
     steps:
       - checkout
+      - attach_workspace:
+          at: /tmp/dist
       - run:
           name: deploy
           command: make deploy

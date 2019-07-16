@@ -1,7 +1,7 @@
 .PHONY: test deploy
 
 VERSION=DEFAULT
-TARGET=./build
+TARGET=./dist/build
 
 build:
 	echo BUILD > ${TARGET}
