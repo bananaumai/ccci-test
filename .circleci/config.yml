@@ -34,7 +34,14 @@ jobs:
           at: dist
       - run:
           name: deploy
-          command: make deploy
+          command: |
+            VERSION=`echo ${CIRCLE_TAG} | perl -pe 's/^deploy\/(.*)$/$1/'`
+            if [VERSION != '']; then
+              make VERSION=${VERSION} deploy
+            else
+              exit 1
+            fi
+
 workflows:
   version: 2
   build-test-deploy:
