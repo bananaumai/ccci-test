@@ -1,12 +1,38 @@
-version: 2
-jobs:
-  build:
-    docker:
-      - image: circleci/golang:1.12
+job_common:
+  docker:
+    - image: circleci/golang:1.12
 
+jobs:
+  build: &job_common
     steps:
       - checkout
-
+      - run:
+          name: build
+          command: make build
+  test: &job_common
+    steps:
+      - checkout
       - run:
           name: test
           command: make test
+  deploy: &job_common
+    steps:
+      - checkout
+      - run:
+          name: deploy
+          command: make deploy
+workflows:
+  version: 2
+  build-test-deploy:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - deploy:
+          requires:
+            - test
+          filters:
+            tags:
+              only: /^deploy\/.*$/
+

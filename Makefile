@@ -1,9 +1,13 @@
-.PHONY: build test
+.PHONY: test deploy
 
-VERSION=default
+VERSION=DEFAULT
+TARGET=./build
 
 build:
-	echo ${VERSION} > ./build
+	echo BUILD > ${TARGET}
 
 test:
-	echo ./test.txt | grep test
+	echo ./build | grep BUILD
+
+deploy: build 
+	echo ${VERSION} >> ${TARGET}
