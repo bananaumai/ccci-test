@@ -1,14 +1,17 @@
 .PHONY: test deploy
 
-VERSION=DEFAULT
-TARGET_DIR=./
-TARGET=./dist/build
+VERSION := DEFAULT
+TARGET := ./dist/build
 
-build:
+BUILD := ${TARGET}
+
+$(BUILD):
 	echo BUILD > ${TARGET}
 
-test:
-	echo ${TARGET} | grep BUILD
+build: $(BUILD)
 
-deploy: build 
+test: build
+	grep BUILD ${TARGET}
+
+deploy: build
 	echo ${VERSION} >> ${TARGET}
