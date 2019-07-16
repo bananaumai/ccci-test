@@ -8,7 +8,7 @@ build:
 	echo BUILD > ${TARGET}
 
 test:
-	echo ./build | grep BUILD
+	echo ${TARGET} | grep BUILD
 
 deploy: build 
 	echo ${VERSION} >> ${TARGET}
